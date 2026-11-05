@@ -5,40 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Story Generator</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
         body {
             background-color: #1a1a2e;
             color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
         .card {
             background: #16213e;
             padding: 25px;
             border-radius: 12px;
-            width: 100%;
+            width: 90%;
             max-width: 400px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             text-align: center;
         }
         h2 {
-            margin-bottom: 20px;
             color: #e94560;
-        }
-        label {
-            display: block;
-            text-align: left;
-            margin: 10px 0 5px;
-            font-size: 14px;
-            color: #00fff5;
+            margin-bottom: 20px;
         }
         textarea, select, button {
             width: 100%;
@@ -47,12 +35,13 @@
             border: none;
             margin-bottom: 15px;
             font-size: 14px;
+            box-sizing: border-box;
         }
         textarea {
             height: 100px;
-            resize: none;
             background: #0f3460;
             color: #fff;
+            resize: none;
         }
         select {
             background: #0f3460;
@@ -62,101 +51,44 @@
             background-color: #e94560;
             color: white;
             font-weight: bold;
-            font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
         }
-        button:hover {
-            background-color: #ff2e63;
-        }
-        #loading-screen {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #0f3460;
-            border-top: 5px solid #e94560;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 15px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        #result-box {
-            display: none;
-            text-align: left;
-            background: #0f3460;
-            padding: 15px;
-            border-radius: 8px;
+        #result {
             margin-top: 15px;
-            max-height: 200px;
-            overflow-y: auto;
+            background: #0f3460;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: left;
+            display: none;
             font-size: 13px;
-            line-height: 1.5;
         }
     </style>
 </head>
 <body>
 
-<div class="card" id="form-card">
-    <h2>✨ AI Story Video Maker</h2>
-    
-    <label for="prompt">Kahani Ka Idea Likhein:</label>
-    <textarea id="prompt" placeholder="Jaise: Ek jaadui chidiya..."></textarea>
-    
-    <label for="style">Video Style Chunein:</label>
+<div class="card">
+    <h2>✨ AI Story Maker</h2>
+    <textarea id="idea" placeholder="Kahani ka idea yahan likhein..."></textarea>
     <select id="style">
-        <option value="3d">3D Animation</option>
-        <option value="anime">Anime Style</option>
-        <option value="realistic">Realistic</option>
+        <option value="3D">3D Animation</option>
+        <option value="Anime">Anime Style</option>
     </select>
-
-    <button onclick="generateStory()">Video Banayein (1-Click)</button>
-    
-    <div id="result-box"></div>
-</div>
-
-<div class="card" id="loading-screen">
-    <div class="spinner"></div>
-    <h3 style="color: #00fff5; margin-bottom: 10px;">AI Story Ban Rahi Hai...</h3>
-    <p id="loading-text" style="font-size: 13px; color: #aaa;">Script taiyar ki ja rahi hai...</p>
+    <button onclick="makeStory()">Video Banayein</button>
+    <div id="result"></div>
 </div>
 
 <script>
-    function generateStory() {
-        let text = document.getElementById('prompt').value;
-        let style = document.getElementById('style').value;
+    function makeStory() {
+        let idea = document.getElementById('idea').value;
+        let resultDiv = document.getElementById('result');
         
-        if(text.trim() === "") {
-            alert("Kripya pehle kahani ka idea likhein!");
+        if(idea.trim() === "") {
+            alert("Pehle kuch toh likhein!");
             return;
         }
 
-        // Form chupayein aur loading dikhayein
-        document.getElementById('form-card').style.display = 'none';
-        document.getElementById('loading-screen').style.display = 'flex';
-
-        // Simulating AI response generation (Yahan hum baad mein apni API key jodenge)
-        setTimeout(() => {
-            document.getElementById('loading-text').innerText = "Scenes design ho rahe hain...";
-        }, 2000);
-
-        setTimeout(() => {
-            // Loading hata kar result dikhayein
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('form-card').style.display = 'block';
-            
-            let resultBox = document.getElementById('result-box');
-            resultBox.style.display = 'block';
-            resultBox.innerHTML = `<strong>✨ AI Generated Story (${style.toUpperCase()} Style):</strong><br><br>
-            " ${text} ki yeh kahani ek bade hi romanchak mod par shuru hoti hai. Ek sundar subah, sabhi patra apne naye safar par nikal pade..." <br><br><em>(Yeh aapka pehla AI text output hai!)</em>`;
-        }, 4000);
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = "<b>AI Story:</b><br>Aapke idea '" + idea + "' par adharit shandar kahani taiyar ho rahi hai! Jaldi hi yahan naya video scene aayega.";
     }
 </script>
 
