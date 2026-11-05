@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Story Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #1a1a2e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: #16213e;
+            padding: 25px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #e94560;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin: 10px 0 5px;
+            font-size: 14px;
+            color: #00fff5;
+        }
+        textarea, select, button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        textarea {
+            height: 100px;
+            resize: none;
+            background: #0f3460;
+            color: #fff;
+        }
+        select {
+            background: #0f3460;
+            color: #fff;
+        }
+        button {
+            background-color: #e94560;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #ff2e63;
+        }
+        /* Loading Screen Style */
+        #loading-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #0f3460;
+            border-top: 5px solid #e94560;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card" id="form-card">
+    <h2>✨ AI Story Video Maker</h2>
+    
+    <label for="prompt">Kahani Ka Idea Likhein:</label>
+    <textarea id="prompt" placeholder="Jaise: Ek jaadui chidiya..."></textarea>
+    
+    <label for="style">Video Style Chunein:</label>
+    <select id="style">
+        <option value="3d">3D Animation</option>
+        <option value="anime">Anime Style</option>
+        <option value="realistic">Realistic</option>
+    </select>
+
+    <button onclick="startLoading()">Video Banayein (1-Click)</button>
+</div>
+
+<!-- Loading State Card -->
+<div class="card" id="loading-screen">
+    <div class="spinner"></div>
+    <h3 style="color: #00fff5; margin-bottom: 10px;">Video Ban Rahi Hai...</h3>
+    <p id="loading-text" style="font-size: 13px; color: #aaa;">Script generate ho rahi hai...</p>
+</div>
+
+<script>
+    function startLoading() {
+        let text = document.getElementById('prompt').value;
+        if(text.trim() === "") {
+            alert("Kripya pehle kahani ka idea likhein!");
+            return;
+        }
+
+        // Hide form and show loading
+        document.getElementById('form-card').style.display = 'none';
+        document.getElementById('loading-screen').style.display = 'flex';
+
+        // Fake progress text changes to look like AutoDraft AI
+        setTimeout(() => {
+            document.getElementById('loading-text').innerText = "Characters aur Scenes ban rahe hain...";
+        }, 2000);
+
+        setTimeout(() => {
+            document.getElementById('loading-text').innerText = "Voiceover aur Images stitch ho rahe hain...";
+        }, 4000);
+
+        setTimeout(() => {
+            alert("Aapka video successfully process ho gaya! (Yeh demo tha)");
+            // Reset back
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('form-card').style.display = 'block';
+        }, 6000);
+    }
+</script>
+
+</body>
+</html>
